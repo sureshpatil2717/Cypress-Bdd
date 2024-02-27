@@ -1,0 +1,38 @@
+BDD Cypress Integration steps
+
+1) Create a folder & open in visual studio code
+2) open terminal in visual studio code and install cypress , bdd
+  a)npm install --save-dev cypress-cucumber-preprocessor
+  b)npm install --save-dev cypress
+3) configuration in cypress folders
+
+a) package.json 
+
+"cypress-cucumber-preprocessor": {
+    "nonGlobalStepDefinitions": false,
+    "stepDefinitions": "cypress/e2e/step_definitions/**/",
+    "cucumberJson": {
+      "generate": true,
+      "outputFolder": "cypress/cucumber-json",
+      "filePrefix": "",
+      "fileSuffix": ".cucumber"
+    }
+b) cypress.config.js
+
+const cucumber = require('cypress-cucumber-preprocessor').default
+const { defineConfig } = require("cypress");
+
+module.exports = defineConfig({
+  e2e: {
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
+      on('file:preprocessor', cucumber())
+    },
+    specPattern:"cypress/e2e/Features/*.feature",
+  },
+});
+
+
+4)for html report
+
+fallow the steps in the given link https://www.npmjs.com/package/multiple-cucumber-html-reporter
